@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: org.example.PizzaApp
+Main-Class: pl.edu.uksw.java.pizza.PizzaApp
 

@@ -34,7 +34,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.example.PizzaApp</mainClass>
+                            <mainClass>pl.edu.uksw.java.pizza.PizzaApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
