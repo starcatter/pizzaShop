@@ -3,7 +3,7 @@ package pl.edu.uksw.java.pizza;
 import java.util.ArrayList;
 import java.util.List;
 
-class PizzaOrder {
+public class PizzaOrder {
     final PizzaSize size;
     final PizzaRecipe recipe;
     final List<Ingredient> extras = new ArrayList<>();

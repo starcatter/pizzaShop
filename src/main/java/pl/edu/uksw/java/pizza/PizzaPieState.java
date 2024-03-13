@@ -1,6 +1,6 @@
 package pl.edu.uksw.java.pizza;
 
-enum PizzaPieState {
+public enum PizzaPieState {
     Dough,
     Flattened,
     Stretched,

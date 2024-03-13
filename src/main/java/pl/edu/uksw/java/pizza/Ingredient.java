@@ -1,6 +1,6 @@
 package pl.edu.uksw.java.pizza;
 
-enum Ingredient {
+public enum Ingredient {
     Cheese,
     Peperoni,
     Ham,

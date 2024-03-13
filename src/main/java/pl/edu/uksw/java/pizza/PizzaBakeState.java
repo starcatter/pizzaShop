@@ -1,6 +1,6 @@
 package pl.edu.uksw.java.pizza;
 
-enum PizzaBakeState {
+public enum PizzaBakeState {
     Raw,
     Baking,
     Baked,

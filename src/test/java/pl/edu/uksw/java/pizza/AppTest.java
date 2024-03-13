@@ -20,7 +20,7 @@ public class AppTest {
         shop = new PizzaShop(List.of(
                 new PizzaRecipe("Margherita", List.of(Ingredient.Cheese)),
                 new PizzaRecipe("Peperoni", List.of(Ingredient.Cheese, Ingredient.Peperoni))),
-                1, 1);
+                1, 1, 1);
     }
 
     @Test

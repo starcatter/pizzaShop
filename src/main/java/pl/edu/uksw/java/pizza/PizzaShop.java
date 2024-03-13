@@ -11,11 +11,15 @@ class PizzaShop {
     List<PizzaShopWorker> workers = new ArrayList<>();
     List<PizzaOven> pizzaOvens = new ArrayList<>();
 
-    public PizzaShop(List<PizzaRecipe> menu, int worker_cnt, int oven_cnt) {
+    public PizzaShop(List<PizzaRecipe> menu, int cook_cnt,  int helper_cnt, int oven_cnt) {
         this.menu = menu;
 
-        for (int i = 0; i < worker_cnt; i++) {
-            workers.add(new PizzaShopWorker(this));
+        for (int i = 0; i < cook_cnt; i++) {
+            workers.add(new PizzaShopCook(this));
+        }
+
+        for (int i = 0; i < helper_cnt; i++) {
+            workers.add(new PizzaShopHelper(this));
         }
 
         for (int i = 0; i < oven_cnt; i++) {
@@ -50,7 +54,7 @@ class PizzaShop {
     public void update() {
         for (PizzaShopWorker worker : workers) {
             boolean didSomeWork = worker.update();
-            if(!didSomeWork){
+            if (!didSomeWork) {
                 System.out.println("Idle worker");
             }
         }

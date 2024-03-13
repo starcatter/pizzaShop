@@ -1,6 +1,6 @@
 package pl.edu.uksw.java.pizza;
 
-enum PizzaSize {
+public enum PizzaSize {
     S,
     M,
     L

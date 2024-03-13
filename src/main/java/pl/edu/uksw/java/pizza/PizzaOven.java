@@ -1,6 +1,6 @@
 package pl.edu.uksw.java.pizza;
 
-class PizzaOven {
+public class PizzaOven {
     final int pizzaBakeTime;
     Pizza contents = null;
     int timeLeft = 0;

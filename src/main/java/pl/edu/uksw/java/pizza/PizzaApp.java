@@ -36,7 +36,7 @@ public class PizzaApp {
         PizzaShop shop = new PizzaShop(List.of(
                 new PizzaRecipe("Margherita", List.of(Ingredient.Cheese)),
                 new PizzaRecipe("Peperoni", List.of(Ingredient.Cheese, Ingredient.Peperoni))),
-                4, 3);
+                4, 1, 2);
 
 
         List<PizzaOrder> orders = new ArrayList<>();
