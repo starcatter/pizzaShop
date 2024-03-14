@@ -57,6 +57,7 @@ class PizzaShopCustomer {
     private void leave() {
         assert table != null;
         table.vacate();
+        table =  null;
     }
 
     private void eatPizza() {
