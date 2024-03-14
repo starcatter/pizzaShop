@@ -1,10 +1,14 @@
 package pl.edu.uksw.java.pizza;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class PizzaApp {
+    private static final Logger log = LoggerFactory.getLogger(PizzaApp.class);
     public static void main(String[] args) throws InterruptedException {
         PizzaShop shop = new PizzaShop(List.of(
                 new PizzaRecipe("Margherita", List.of(Ingredient.Cheese)),
@@ -22,7 +26,13 @@ public class PizzaApp {
 
         do {
             shop.update();
-            System.out.println(shop);
+            log.info(shop.toString());
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         } while (!shop.isIdle());
     }
 }

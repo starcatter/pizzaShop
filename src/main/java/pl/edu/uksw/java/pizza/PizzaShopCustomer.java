@@ -1,9 +1,14 @@
 package pl.edu.uksw.java.pizza;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 class PizzaShopCustomer {
+    private static final Logger log = LoggerFactory.getLogger(PizzaShopCustomer.class);
     Pizza pizza;
     PizzaOrder pizzaOrder;
     PizzaShopTable table;
@@ -52,7 +57,15 @@ class PizzaShopCustomer {
                     leave();
                 }
             } else {
-                System.out.println("Customer waiting for pizza...");
+                log.warn("Customer waiting for pizza...");
+                synchronized (this){
+                    try {
+                        wait();
+                        log.info("Customer got pizza...");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         }
     }
@@ -101,8 +114,30 @@ class PizzaShopCustomer {
         return "PizzaShopCustomer{" +
                 " id=" + id +
                 ", pizza=" + pizza +
-                ", pizzaOrder=" + (pizzaOrder != null ? pizzaOrder.recipe.name() : "none yet") +
+                ", pizzaOrder=" + (pizzaOrder != null ? pizzaOrder : "none yet") +
                 ", seated=" + (table!=null) +
                 '}';
+    }
+
+    public void sitHere(PizzaShopTable pizzaShopTable) {
+        table=pizzaShopTable;
+        var thread = new Thread(this::startTrhead);
+        thread.setName("Customer #"+id);
+        thread.start();
+    }
+
+    private void startTrhead() {
+        while (this.isSeated()) {
+            try {
+                update();
+            } catch (RuntimeException exception) {
+                log.error(exception.getMessage());
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

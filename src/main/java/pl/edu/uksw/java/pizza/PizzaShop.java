@@ -1,11 +1,15 @@
 package pl.edu.uksw.java.pizza;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 class PizzaShop {
+    private static final Logger log = LoggerFactory.getLogger(PizzaShop.class);
     List<PizzaOrder> orders = new ArrayList<>();
     List<Pizza> pizzas = new ArrayList<>();
     List<PizzaRecipe> menu;
@@ -47,7 +51,9 @@ class PizzaShop {
         if (freeTable.isPresent()) {
             PizzaShopTable pizzaShopTable = freeTable.get();
             pizzaShopTable.seatCustomer(customer);
-            System.out.println(pizzaShopTable);
+
+            log.info("seated customer: " + pizzaShopTable) ;
+
             orders.add(customer.getNewOrder(getMenu()));
             return true;
         }
@@ -84,18 +90,24 @@ class PizzaShop {
         for (PizzaShopWorker worker : workers) {
             boolean didSomeWork = worker.update();
             if (!didSomeWork) {
-                System.out.println("Idle worker");
+                log.warn("Idle worker");
             }
         }
 
         // pizzas serve themselves (???)
-        for (Iterator<Pizza> iterator = pizzas.iterator(); iterator.hasNext(); ) {
-            Pizza pizza = iterator.next();
+        for (Iterator<Pizza> pizzaIterator = pizzas.iterator(); pizzaIterator.hasNext(); ) {
+            Pizza pizza = pizzaIterator.next();
             if (pizza.isReadyToServe()) {
                 var order = pizza.getOrder();
                 var customer = order.customer;
-                customer.setPizza(pizza);
-                iterator.remove();
+
+                log.info("Pizza ready for " + customer);
+                synchronized (customer) {
+                    customer.setPizza(pizza);
+                    customer.notify();
+                }
+
+                pizzaIterator.remove();
             }
         }
 
@@ -107,21 +119,20 @@ class PizzaShop {
             if (seatCustomer(customer)) {
                 iterator.remove();
             } else {
-                System.out.println("Customer waiting for a free table...");
+                log.warn("Customer waiting for a free table...");
             }
-
         }
 
         // customers eat and go
-        try {
-            for (var table : tables) {
-                if (table.isFree()) continue;
-
-                table.getCustomer().update();
-            }
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            for (var table : tables) {
+//                if (table.isFree()) continue;
+//
+//                table.getCustomer().update();
+//            }
+//        } catch (RuntimeException exception) {
+//            log.error(exception.getMessage());
+//        }
     }
 
     public void addCustomer(PizzaShopCustomer customer) {

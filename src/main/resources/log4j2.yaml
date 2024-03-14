@@ -1,0 +1,31 @@
+Configuration:
+  name: log_conf
+  Appenders:
+    Console:
+      name: ConsoleOut
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "[%t] %m%n"
+    File:
+      name: FileOut
+      fileName: "output.log"
+      PatternLayout:
+        Pattern: "%d %p %C{1.} [%t] %m%n"
+      Filters:
+        ThresholdFilter:
+          level: trace
+  Loggers:
+    logger:
+      - name: org.example.App
+        level: warn
+        AppenderRef:
+          ref: ConsoleOut
+      - name: org.example.App2
+        level: trace
+        AppenderRef:
+          ref: FileOut
+    Root:
+      level: trace
+      AppenderRef:
+        - ref: FileOut
+        - ref: ConsoleOut

@@ -16,7 +16,7 @@ class PizzaShopTable {
 
     public void seatCustomer(PizzaShopCustomer customer) {
         this.customer = customer;
-        customer.table = this;
+        customer.sitHere(this);
     }
 
     public void vacate() {
