@@ -11,11 +11,15 @@ public class PizzaOrder {
     final List<Ingredient> extras = new ArrayList<>();
     private Pizza pizza = null;
 
+    static int id_cnt = 0;
+    final int id;
+
     PizzaOrder(PizzaShopCustomer customer, PizzaSize size, PizzaRecipe recipe, List<Ingredient> extras) {
         this.customer = customer;
         this.size = size;
         this.recipe = recipe;
         this.extras.addAll(extras);
+        id = id_cnt++;
     }
 
     public Pizza getPizza() {
@@ -37,8 +41,10 @@ public class PizzaOrder {
     @Override
     public String toString() {
         return "PizzaOrder{" +
-                "size=" + size +
-                ", recipe=" + recipe.name() +
+                "id=" + id +
+                ", customer=" + customer.id +
+                ", size=" + size +
+                ", recipe=" + recipe.ingredients() +
                 ", extras=" + extras +
                 ", pizza=" + pizza +
                 '}';

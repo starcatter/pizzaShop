@@ -11,9 +11,13 @@ class Pizza {
 
     private int slicesLeft;
 
+    static int id_cnt = 0;
+    final int id;
+
     public Pizza(PizzaOrder order) {
         this.order = order;
         this.slicesLeft = 4 * (order.size.ordinal()+1);
+        id = id_cnt++;
     }
 
     public Ingredient getNextIngredient() {
@@ -86,10 +90,12 @@ class Pizza {
     @Override
     public String toString() {
         return "Pizza{" +
-                "order=" + order.getIngredientList() +
+                " id=" + id +
+                ", order= #" + order.id +
                 ", ingredientsOnPizza=" + ingredientsOnPizza +
+                ", pie=" + pie.state +
                 ", bakeState=" + bakeState +
-                ", pie=" + pie +
+                ", slicesLeft=" + slicesLeft +
                 '}';
     }
 

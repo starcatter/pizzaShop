@@ -89,11 +89,13 @@ class PizzaShop {
         }
 
         // pizzas serve themselves (???)
-        for (Pizza pizza : pizzas) {
+        for (Iterator<Pizza> iterator = pizzas.iterator(); iterator.hasNext(); ) {
+            Pizza pizza = iterator.next();
             if (pizza.isReadyToServe()) {
                 var order = pizza.getOrder();
                 var customer = order.customer;
                 customer.setPizza(pizza);
+                iterator.remove();
             }
         }
 

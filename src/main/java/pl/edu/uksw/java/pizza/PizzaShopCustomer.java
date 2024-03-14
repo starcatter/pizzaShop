@@ -7,8 +7,15 @@ class PizzaShopCustomer {
     Pizza pizza;
     PizzaOrder pizzaOrder;
     PizzaShopTable table;
+    
+    static int id_cnt = 0;
+    final int id;
 
     private static final int MAX_EXTRAS = 5;
+
+    PizzaShopCustomer() {
+        id = id_cnt++;
+    }
 
     public static List<Ingredient> pickExtras(int max) {
         List<Ingredient> extras = new ArrayList<>();
@@ -92,7 +99,8 @@ class PizzaShopCustomer {
     @Override
     public String toString() {
         return "PizzaShopCustomer{" +
-                "pizza=" + pizza +
+                " id=" + id +
+                ", pizza=" + pizza +
                 ", pizzaOrder=" + (pizzaOrder != null ? pizzaOrder.recipe.name() : "none yet") +
                 ", seated=" + (table!=null) +
                 '}';
