@@ -126,6 +126,10 @@ class PizzaShop {
         customers.add(customer);
     }
 
+    public boolean isIdle(){
+        return customers.isEmpty() && tables.stream().filter(PizzaShopTable::isFree).count() == tables.size();
+    }
+
     @Override
     public String toString() {
         return "PizzaShop{" +

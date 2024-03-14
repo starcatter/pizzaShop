@@ -23,7 +23,6 @@ public class PizzaApp {
         do {
             shop.update();
             System.out.println(shop);
-            Thread.sleep(10);
-        } while (!shop.customers.isEmpty() || shop.getFreeTable().isEmpty());
+        } while (!shop.isIdle());
     }
 }
