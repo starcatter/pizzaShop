@@ -9,8 +9,11 @@ class Pizza {
     private final PizzaPie pie = new PizzaPie();
     private PizzaBakeState bakeState = PizzaBakeState.Raw;
 
+    private int slicesLeft;
+
     public Pizza(PizzaOrder order) {
         this.order = order;
+        this.slicesLeft = 4 * (order.size.ordinal()+1);
     }
 
     public Ingredient getNextIngredient() {
@@ -65,6 +68,21 @@ class Pizza {
         return hasAllIngredients() && bakeState == PizzaBakeState.Raw;
     }
 
+    public boolean hasSlicesLeft(){
+        return slicesLeft>0;
+    }
+
+    public void eatSlice(){
+        if(!hasSlicesLeft()){
+            throw new RuntimeException("Eating empty pizza!");
+        }
+        slicesLeft--;
+    }
+
+    public PizzaOrder getOrder() {
+        return order;
+    }
+
     @Override
     public String toString() {
         return "Pizza{" +
@@ -73,5 +91,9 @@ class Pizza {
                 ", bakeState=" + bakeState +
                 ", pie=" + pie +
                 '}';
+    }
+
+    public boolean isGoodToEat() {
+        return isBaked() && bakeState != PizzaBakeState.Burned;
     }
 }

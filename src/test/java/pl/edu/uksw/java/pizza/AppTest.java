@@ -20,7 +20,7 @@ public class AppTest {
         shop = new PizzaShop(List.of(
                 new PizzaRecipe("Margherita", List.of(Ingredient.Cheese)),
                 new PizzaRecipe("Peperoni", List.of(Ingredient.Cheese, Ingredient.Peperoni))),
-                1, 1, 1);
+                1, 1, 1,1);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class AppTest {
 
         assertEquals(pizzaRecipe.name(), "Margherita");
 
-        PizzaOrder order = new PizzaOrder(PizzaSize.L, pizzaRecipe, new ArrayList<>());
+        PizzaOrder order = new PizzaOrder(null, PizzaSize.L, pizzaRecipe, new ArrayList<>());
 
         shop.placeOrder(order);
 
@@ -59,7 +59,7 @@ public class AppTest {
         assertEquals(pizzaRecipe.name(), "Peperoni");
 
         List<Ingredient> extras = List.of(Ingredient.Ham, Ingredient.Mushrooms);
-        PizzaOrder order = new PizzaOrder(PizzaSize.L, pizzaRecipe, extras);
+        PizzaOrder order = new PizzaOrder(null, PizzaSize.L, pizzaRecipe, extras);
 
         shop.placeOrder(order);
 
@@ -85,7 +85,7 @@ public class AppTest {
 
         assertEquals(pizzaRecipe.name(), "Peperoni");
 
-        PizzaOrder order = new PizzaOrder(PizzaSize.L, pizzaRecipe, new ArrayList<>());
+        PizzaOrder order = new PizzaOrder(null, PizzaSize.L, pizzaRecipe, new ArrayList<>());
 
         Pizza pizza = new Pizza(order);
 

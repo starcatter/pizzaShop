@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PizzaOrder {
+
+    final PizzaShopCustomer customer;
     final PizzaSize size;
     final PizzaRecipe recipe;
     final List<Ingredient> extras = new ArrayList<>();
     private Pizza pizza = null;
 
-    PizzaOrder(PizzaSize size, PizzaRecipe recipe, List<Ingredient> extras) {
+    PizzaOrder(PizzaShopCustomer customer, PizzaSize size, PizzaRecipe recipe, List<Ingredient> extras) {
+        this.customer = customer;
         this.size = size;
         this.recipe = recipe;
         this.extras.addAll(extras);
